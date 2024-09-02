@@ -46,6 +46,22 @@ class Solution:
                 curr[j] -= nums[i]
             return False
         return dfs(0)
+    
+    def maxConseccutiveAnswers(self, answerKey: str, k: int) -> int:
+        def maxConsecutive(target, k):
+            res = 0
+            left = 0
+            count = 0
+            for right in range(len(answerKey)):
+                count += answerKey[right] != target
+                while count > k:
+                    count -= answerKey[left] != target
+                    left += 1
+                res = max(res, right - left + 1)
+            return res
+
+        return max(maxConsecutive('T', k), maxConsecutive('F', k))
+
         
             
         
@@ -58,3 +74,7 @@ print(sol.canPartitionKSubsets([1,1,1,1,2,2,2,2], 2))
 print(sol.canPartitionKSubsets_dfs([4,3,2,3,5,2,1], 4))
 print(sol.canPartitionKSubsets_dfs([1,2,3,4], 3))
 print(sol.canPartitionKSubsets_dfs([1,1,1,1,2,2,2,2], 2))
+
+print(sol.maxConseccutiveAnswers("TTFF", 2))
+print(sol.maxConseccutiveAnswers("TFFT", 1))
+print(sol.maxConseccutiveAnswers("TTFTTFTT", 1))
