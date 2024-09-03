@@ -1,7 +1,9 @@
 #include "Solutions.hpp"
 #include <algorithm>
+#include <climits>
 #include <numeric>
 #include <vector>
+#include <iostream>
 
 auto solution::canPartitionKSubsets(std::vector<int>& nums, int k) -> bool {
     auto sum = std::accumulate(nums.begin(), nums.end(), 0);
@@ -71,4 +73,61 @@ auto maxConsecutice(char c, int k, std::string& answerKey) -> int {
 
 auto solution::maxConsecutiveAnswers(std::string& answerKey, int k) -> int {
     return std::max(maxConsecutice('T', k, answerKey), maxConsecutice('F', k, answerKey));
+}
+
+auto subsets(std::vector<int>& nums) -> std::vector<std::vector<int>> {
+    std::vector<std::vector<int>> res = {{}};
+    if (nums.empty()) return res;
+    std::vector<int> subset;
+    auto first = nums[0];
+    auto rest = std::vector<int>(nums.begin() + 1, nums.end());
+    auto without_first = subsets(rest);
+    std::vector<std::vector<int>> with_first;
+    for (auto& s : without_first) {
+        auto t = s;
+        t.push_back(first);
+        with_first.push_back(t);
+    }
+    res.insert(res.end(), with_first.begin(), with_first.end());
+    res.insert(res.end(), without_first.begin(), without_first.end());
+    return res;
+}
+
+auto solution::maxStrength(std::vector<int> &nums) -> long long {
+    auto n = nums.size();
+    auto temp = subsets(nums);
+    std::vector<long long> res;
+    long long max = LLONG_MIN;
+    
+    for (auto& t : temp) {
+        if (t.empty()) continue;
+        auto sum = std::accumulate(t.begin(), t.end(), 1LL, std::multiplies<long long>());
+        res.push_back(sum);
+    }
+
+    std::sort(res.begin(), res.end());
+    max = res.back();
+    return max;    
+}
+
+auto solution::maxStrengthGreedy(std::vector<int> &nums) -> long long {
+    std::sort(nums.begin(), nums.end());
+    auto n = nums.size();
+    long long res = 1;
+    if (n == 1) return nums[0];
+    if (nums[1] == nums.back() == 0) return 0;
+    auto i = 0;
+    while (i < n) {
+        if (nums[i] < 0 and i + 1< n and nums[i + 1] < 0) {
+            res *= nums[i] * nums[i + 1];
+            i += 2;
+        } else if (nums[i] < 0) {
+            res *= nums[i];
+            ++i;
+        } else {
+            res *= nums[i];
+            ++i;
+        }
+    }
+    return res;
 }
