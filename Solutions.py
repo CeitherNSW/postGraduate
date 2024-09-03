@@ -102,6 +102,21 @@ class Solution:
                 i += 1
         
         return ans
+    
+    def addMinimum(self, word: str) -> int:
+        n = len(word)
+        d = [0] * (n + 1)
+        for i in range(1, n + 1):
+            d[i] = d[i-1] + 2
+            if i > 1 and word[i-1] > word[i - 2]:
+                d[i] = d[i - 1] - 1
+        return d[n]
+        # k, prev = 0, 'z'
+        # for c in word:
+        #     k += c <= prev
+        #     prev = c
+        # return k * 3 - len(word)
+        
                 
             
         
@@ -123,6 +138,5 @@ print(sol.maxStrength([3,-1,-5,2,5,-9]))
 print(sol.maxStrengthGreedy([3,-1,-5,2,5,-9]))
 print(sol.maxStrengthGreedy([8,6,0,5,-4,-8,-4,9,-1,6,-4,8,-5]))
 
-a = [1,2,3]
-b = [4,5,6]
-print(a + b)
+
+print(sol.addMinimum("abbbcaa"))

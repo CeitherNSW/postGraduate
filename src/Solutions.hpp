@@ -8,4 +8,5 @@ class solution  {
     auto maxConsecutiveAnswers(std::string& answerKey, int k) -> int;
     auto maxStrength(std::vector<int>& nums) -> long long;
     auto maxStrengthGreedy(std::vector<int>& nums) -> long long;
+    auto minAdd(std::string word) -> int;
 };

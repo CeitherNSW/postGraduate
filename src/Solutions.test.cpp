@@ -55,3 +55,9 @@ TEST_CASE("maxStrengthGreedy") {
     auto res2 = s.maxStrength(nums2);
     REQUIRE(res2 == 265420800);
 }
+
+TEST_CASE("minAdd") {
+    solution s;
+    std::string word = "abbbcaa";
+    REQUIRE(s.minAdd(word) == 8);
+}

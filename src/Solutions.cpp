@@ -131,3 +131,15 @@ auto solution::maxStrengthGreedy(std::vector<int> &nums) -> long long {
     }
     return res;
 }
+
+auto solution::minAdd(std::string word) -> int {
+    auto n = word.size();
+    std::vector<int> dp(n + 1, 0);
+    for (int i = 1; i < n+1; ++i) {
+        dp[i] = dp[i-1] +2;
+        if (i > 1 and word[i -1] > word [ i - 2]) {
+            dp[i] = dp[i - 1] - 1;
+        }
+    }
+    return dp[n];
+}
