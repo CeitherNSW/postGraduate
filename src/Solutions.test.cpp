@@ -61,3 +61,9 @@ TEST_CASE("minAdd") {
     std::string word = "abbbcaa";
     REQUIRE(s.minAdd(word) == 8);
 }
+
+TEST_CASE("countWays") {
+    solution s;
+    std::vector<int> nums = {6,0,3,3,6,7,2,7};
+    REQUIRE(s.countWays(nums) == 3);
+}

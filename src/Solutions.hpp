@@ -9,4 +9,5 @@ class solution  {
     auto maxStrength(std::vector<int>& nums) -> long long;
     auto maxStrengthGreedy(std::vector<int>& nums) -> long long;
     auto minAdd(std::string word) -> int;
+    auto countWays(std::vector<int>& nums) -> int;
 };

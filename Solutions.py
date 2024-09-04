@@ -116,6 +116,20 @@ class Solution:
         #     k += c <= prev
         #     prev = c
         # return k * 3 - len(word)
+
+    def countWays(self, nums: List[int]) -> int:
+        n = len(nums)
+        nums.sort()
+        ans = 0
+        for i in range(0, n + 1): 
+            if i > 0 and nums[i - 1] >= i:
+                continue
+            if i < n and nums[i] <= i:
+                continue
+            ans += 1
+        return ans
+    
+        
         
                 
             
@@ -140,3 +154,4 @@ print(sol.maxStrengthGreedy([8,6,0,5,-4,-8,-4,9,-1,6,-4,8,-5]))
 
 
 print(sol.addMinimum("abbbcaa"))
+print(sol.countWays([1, 1]))

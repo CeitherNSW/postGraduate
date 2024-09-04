@@ -143,3 +143,20 @@ auto solution::minAdd(std::string word) -> int {
     }
     return dp[n];
 }
+
+auto solution::countWays(std::vector<int> &nums) -> int {
+    auto n = nums.size();
+    int ans = 0;
+    std::sort(nums.begin(), nums.end());
+
+    for (auto i = 0; i < n + 1; ++i){
+        if (i > 0 and nums[i - 1] >= i) {
+            continue;
+        }
+        if (i < n and nums[i] <= i) {
+            continue;
+        }
+        ++ans;
+    }
+    return ans;
+}
