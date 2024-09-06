@@ -10,4 +10,8 @@ class solution  {
     auto maxStrengthGreedy(std::vector<int>& nums) -> long long;
     auto minAdd(std::string word) -> int;
     auto countWays(std::vector<int>& nums) -> int;
+    auto clearDigits(std::string& s) -> std::string;
+    auto clearDigits2(std::string& s) -> std::string;
+    auto maximumLength(std::vector<int>& nums, int k) -> int;
+    auto maximumLength2(std::vector<int>& nums, int k) -> int;
 };

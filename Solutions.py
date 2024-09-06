@@ -129,6 +129,33 @@ class Solution:
             ans += 1
         return ans
     
+    def clearDigits(self, s: str) -> str:
+        cnt = 0
+        delete = []
+        for c in s:
+            if c.isdigit():
+                temp = cnt - 1
+                while temp in delete:
+                    temp -= 1
+                delete.append(cnt)
+                delete.append(temp)
+                cnt += 1
+            else:
+                cnt += 1
+        
+        return ''.join([c for i, c in enumerate(s) if i not in delete])
+    
+    def clearDigits2(self, s: str) -> str:
+        res = []
+        for c in s:
+            if c.isdigit():
+                if res:
+                    res.pop()
+                else:
+                    continue
+            else:
+                res.append(c)
+        return ''.join(res)
         
         
                 
@@ -155,3 +182,6 @@ print(sol.maxStrengthGreedy([8,6,0,5,-4,-8,-4,9,-1,6,-4,8,-5]))
 
 print(sol.addMinimum("abbbcaa"))
 print(sol.countWays([1, 1]))
+
+print(sol.clearDigits("ab1234cd"))
+print(sol.clearDigits2("ab1234cd"))

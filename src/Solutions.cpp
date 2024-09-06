@@ -2,8 +2,9 @@
 #include <algorithm>
 #include <climits>
 #include <numeric>
+#include <unordered_map>
 #include <vector>
-#include <iostream>
+
 
 auto solution::canPartitionKSubsets(std::vector<int>& nums, int k) -> bool {
     auto sum = std::accumulate(nums.begin(), nums.end(), 0);
@@ -159,4 +160,86 @@ auto solution::countWays(std::vector<int> &nums) -> int {
         ++ans;
     }
     return ans;
+}
+
+auto solution::clearDigits(std::string& s) -> std::string {
+    std::vector<int> deleteIdx;
+    auto n = s.size();
+    std::vector<char> digit = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+    for (int i = 0; i < n; ++i) {
+        if (digit.end() != std::find(digit.begin(), digit.end(), s[i])) {
+            auto temp = i - 1;
+            while (deleteIdx.end() != std::find(deleteIdx.begin(), deleteIdx.end(), temp)) {
+                --temp;
+            }
+            deleteIdx.push_back(temp);
+            deleteIdx.push_back(i);
+        }
+    }
+    std::string res;
+    for (int i = 0; i < n; ++i) {
+        if (deleteIdx.end() == std::find(deleteIdx.begin(), deleteIdx.end(), i)) {
+            res += s[i];
+        }
+    }
+    return res;
+}
+
+auto solution::clearDigits2(std::string& s) -> std::string {
+    std::string res;
+    for (const auto& c : s) {
+        if (c >= '0' and c <= '9') {
+            res.pop_back();
+        }
+        else {
+            res.push_back(c);
+        }
+    }
+    return res;
+}
+
+auto solution::maximumLength(std::vector<int>& nums, int k) -> int {
+    auto n = nums.size();
+    std::vector<std::vector<int>> dp;
+    int res = 0;
+    dp.resize(n, std::vector<int>(2 * k + 1, -1));
+
+    for (int i = 0; i < n; ++i) {
+        dp[i][0] = 1;
+        for (int j = 0; j <= k; ++j) {
+            for (int l = 0; l < i; ++l) {
+                auto ad = static_cast<int>(nums[i] != nums[l]);
+                if (j - ad >= 0 and dp[l][j - ad] != -1) {
+                    dp[i][j] = std::max(dp[i][j], dp[l][j - ad] + 1);
+                }
+            }
+            res = std::max(res, dp[i][j]);
+        }
+    }
+    return res;
+}
+
+auto solution::maximumLength2(std::vector<int>& nums, int k) -> int {
+    auto n = nums.size();
+    // std::vector<std::vector<int>> dp;
+    std::unordered_map<int, std::vector<int>> dp;
+    std::vector<int> sup(k + 1, 0);
+
+    for (int i = 0; i < n; ++i) {
+        int tmp = nums[i];
+        if (not dp.count(tmp)) {
+            dp[tmp] = std::vector<int>(k + 1, 0);
+        }
+        auto& temp = dp[tmp];
+        for (int j = 0; j <= k; ++j) {
+            temp[j] = temp[j] + 1;
+            if (j > 0) {
+                temp[j] = std::max(temp[j], sup[j - 1] + 1);
+            }
+        }
+        for (int l = 0; l <= k; ++l) {
+            sup[l] = std::max(sup[l], temp[l]);
+        }
+    }
+    return sup[k];
 }

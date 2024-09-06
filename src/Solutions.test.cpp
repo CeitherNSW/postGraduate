@@ -1,7 +1,7 @@
 #include "Solutions.hpp"
 #include <catch2/catch.hpp>
-#include <iostream>
 #include <vector>
+#include <iostream>
 
 TEST_CASE("canPartitionKSubsets") {
     solution s;
@@ -66,4 +66,32 @@ TEST_CASE("countWays") {
     solution s;
     std::vector<int> nums = {6,0,3,3,6,7,2,7};
     REQUIRE(s.countWays(nums) == 3);
+}
+
+TEST_CASE("clearDigits") {
+    solution s;
+    std::string s1 = "cd34";
+    REQUIRE(s.clearDigits(s1) == "");
+}
+
+TEST_CASE("clearDigits2") {
+    solution s;
+    std::string s1 = "cd34";
+    REQUIRE(s.clearDigits2(s1) == "");
+}
+
+TEST_CASE("maximumLength") {
+    solution s;
+    std::vector<int> nums = {1,2,1,1,3};
+    std::vector<int> nums1 = {1,2,3,4,5,1};
+    REQUIRE(s.maximumLength(nums, 2) == 4);
+    // std::cout << s.maximumLength(nums1, 0) << std::endl;
+}
+
+TEST_CASE("maximumLength2") {
+    solution s;
+    std::vector<int> nums = {1,2,1,1,3};
+    std::vector<int> nums1 = {1,2,3,4,5,1};
+    REQUIRE(s.maximumLength2(nums, 2) == 4);
+    // std::cout << s.maximumLength2(nums1, 0) << std::endl;
 }
