@@ -1,4 +1,9 @@
-from typing import List
+from typing import List, Optional
+
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
 
 class Solution:
     def canPartitionKSubsets(self, nums: List[int], k: int) -> bool:
@@ -157,6 +162,27 @@ class Solution:
                 res.append(c)
         return ''.join(res)
         
+    def sortedSquares(self, nums: List[int]) -> List[int]:
+        return sorted([x*x for x in nums])
+    
+    def mergeNodes(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        dummy = ListNode()
+        tail = dummy
+        curr = head.next
+        ttl = 0
+        
+        while curr:
+            if curr.val == 0:
+                if ttl != 0:
+                    node = ListNode(ttl)
+                    tail.next = node
+                    tail = tail.next
+                    ttl = 0
+            else:
+                ttl += curr.val
+            curr = curr.next
+            
+        return dummy.next
         
                 
             
@@ -185,3 +211,14 @@ print(sol.countWays([1, 1]))
 
 print(sol.clearDigits("ab1234cd"))
 print(sol.clearDigits2("ab1234cd"))
+
+ListNode1 = ListNode(0)
+ListNode2 = ListNode(1)
+ListNode3 = ListNode(3)
+ListNode4 = ListNode(0)
+
+ListNode1.next = ListNode2
+ListNode2.next = ListNode3
+ListNode3.next = ListNode4
+
+print(sol.mergeNodes(ListNode1).val)

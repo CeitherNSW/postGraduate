@@ -5,6 +5,19 @@
 #include <unordered_map>
 #include <vector>
 
+template<typename T>
+auto creatLinkedList(const T& container) -> ListNode* {
+    auto dummy = new ListNode();
+    auto tail = dummy;
+
+    for (const auto& val : container) {
+        auto node = new ListNode(val);
+        tail->next = node;
+        tail = tail->next;
+    }
+    return dummy->next;
+}
+
 
 auto solution::canPartitionKSubsets(std::vector<int>& nums, int k) -> bool {
     auto sum = std::accumulate(nums.begin(), nums.end(), 0);
@@ -242,4 +255,78 @@ auto solution::maximumLength2(std::vector<int>& nums, int k) -> int {
         }
     }
     return sup[k];
+}
+
+auto solution::maximumLength3(std::vector<int>& nums, int k) -> int {
+    auto n = nums.size();
+    std::unordered_map<int, std::vector<int>> dp;
+    std::vector<int> sup(k + 1, 0);
+
+    for(int i = 0; i < n; ++i) {
+        auto tmp = nums[i];
+        if (not dp.count(tmp)) {
+            dp[tmp] = std::vector<int>(k + 1, 0);
+        }
+        auto& temp = dp[tmp];
+        for (int j = 0; j <= k; ++j) {
+            temp[j] = temp[j] + 1;
+            if (j > 0) {
+                temp[j] = std::max(temp[j], sup[j - 1] + 1);
+            }
+        }
+        for (int l = 0; l <= k; ++l) {
+            sup[l] = std::max(sup[l], temp[l]);
+        }
+    }
+    return sup[k];
+}
+
+auto solution::sortedSquares(std::vector<int>& nums) -> std::vector<int> {
+    std::transform(nums.begin(), nums.end(), nums.begin(), [](int x) { return x * x; });
+    std::sort(nums.begin(), nums.end());
+    return nums;
+}
+
+auto solution::sortedSquaresPointers(std::vector<int>& nums) ->std::vector<int> {
+    auto n  = nums.size();
+    std::vector<int> res(n, 0);
+    auto left = nums.begin();
+    auto right = nums.end() - 1;
+    auto i = n - 1;
+    while (left <= right) {
+        if (std::abs(*left) > std::abs(*right)) {
+            res[i] = *left * *left;
+            ++left;
+        } else {
+            res[i] = *right * *right;
+            --right;
+        }
+        --i;
+    }
+    return res;
+}
+
+auto solution::mergeNodes(ListNode *head) -> ListNode* {
+    auto dummy = new ListNode();
+    auto tail = dummy;
+    int ttl = 0;
+    auto curr = head->next;
+
+    while(curr) {
+        if (curr->val == 0) {
+            if (ttl != 0){
+                auto node = new ListNode(ttl);
+                tail->next = node;
+                tail = tail->next;
+                ttl = 0;
+            }
+        }
+        else {
+            ttl += curr->val;
+        }
+        curr = curr->next;
+    }
+    auto res = dummy->next;
+    delete dummy;
+    return res;
 }

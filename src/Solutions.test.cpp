@@ -95,3 +95,38 @@ TEST_CASE("maximumLength2") {
     REQUIRE(s.maximumLength2(nums, 2) == 4);
     // std::cout << s.maximumLength2(nums1, 0) << std::endl;
 }
+
+TEST_CASE("maximunLength3") {
+    solution s;
+    std::vector<int> nums = {1,2,1,1,3};
+    REQUIRE(s.maximumLength3(nums, 2) == 4);
+}
+
+TEST_CASE("sortedSquares") {
+    solution s;
+    std::vector<int> nums = {-4,-1,0,3,10};
+    REQUIRE(s.sortedSquares(nums) == std::vector<int>({0,1,9,16,100}));
+}
+
+// [0,3,1,0,4,5,2,0]
+TEST_CASE("mergeNodes") {
+    solution s;
+    ListNode* head = new ListNode();
+    ListNode* n1 = new ListNode(3);
+    head->next = n1;
+    ListNode* n2 = new ListNode(1);
+    n1->next = n2;
+    ListNode* n3 = new ListNode(0);
+    n2->next = n3;
+    ListNode* n4 = new ListNode(4);
+    n3->next = n4;
+    ListNode* n5 = new ListNode(5);
+    n4->next = n5;
+    ListNode* n6 = new ListNode(2);
+    n5->next = n6;
+    ListNode* tail = new ListNode();
+    n6->next = tail;
+
+    auto res = s.mergeNodes(head);
+    REQUIRE(res->val == 4);
+}

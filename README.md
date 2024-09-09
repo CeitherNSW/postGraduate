@@ -96,3 +96,23 @@ d[i] 取以上情况的最小值。在本题中，每个字符总是尽可能的
 ### *dp[i][j]=max<sub>j</sub>sup[j−1]+1。*
 
 *nums[i]=nums[x]*，假设有索引 *a<b<c*， 并且 *nums[a]=nums[b]=nums[c]*，对于 c 来说如果选取由 a 转移过来计算答案。针对这种情况，dp 使用哈希表维护能节省一些空间，并且在哈希表中用 nums[i] 替换 i。
+
+## 有序数组的平方
+
+一行
+
+return sorted([x*x for x in A])
+
+
+## 合并零之间的节点
+链表模拟
+
+题目要求最后返回的链表中不存在0
+
+创建一个辅助dummy节点
+若当前节点不为0 且 ttl不为0 创建一个新的val为ttl的节点并且把它链接到dummy节点上
+然后将ttl值置0
+否则ttl值加上当前节点的值
+
+最后直接返回dummy.next即可
+若要考虑释放dummy的内存，则需要在先保存dummy的next节点，然后释放dummy，最后返回保存的next节点
