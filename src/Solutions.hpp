@@ -30,4 +30,18 @@ class solution  {
     auto sortedSquares(std::vector<int>& nums) -> std::vector<int>;
     auto sortedSquaresPointers(std::vector<int>& nums) -> std::vector<int>;
     auto mergeNodes(ListNode* head) -> ListNode*;
+    auto climbStairs(int n) -> int;
+    auto climbStairsDP(int n) -> int;
+    auto fib(int n) -> int;
+    auto trib(int n) -> int;
+    auto maximumRobots(std::vector<int>& chargeTimes, std::vector<int>& runningCosts, long long budget) -> int;
+    auto minCostClimbingStairs(std::vector<int>& cost) -> int;
+    auto rob(std::vector<int>& nums) -> int;
+    auto deleteAndEarn(std::vector<int>& nums) -> int;
+    auto removeStars(std::string s) -> std::string;
+    auto removeDuplicates(std::string s) -> std::string;
+    auto removeDuplicates2(std::string s, int k) -> std::string;
+    auto replaceNonCoprimes(std::vector<int> &nums) -> std::vector<int>;
+    auto numberOfPoints(std::vector<std::vector<int>>& nums) -> int;
+    auto findValidSplit(std::vector<int>& nums) -> int;
 };

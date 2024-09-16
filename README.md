@@ -116,3 +116,8 @@ return sorted([x*x for x in A])
 
 最后直接返回dummy.next即可
 若要考虑释放dummy的内存，则需要在先保存dummy的next节点，然后释放dummy，最后返回保存的next节点
+
+# 动态规划笔记
+
+## 爬楼梯
+
